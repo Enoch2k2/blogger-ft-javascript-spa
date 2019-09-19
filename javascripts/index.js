@@ -1,11 +1,3 @@
-document.addEventListener('DOMContentLoaded', function(){
-  // We have access to all of the DOM elements
-  addSubmitEventToForm();
-  addMouseOverToWelcome();
-  addClickEventToPostListHeader();
-  loadPosts();
-});
-
 let posts = [
   {
     title: "Bob's great adventure",
@@ -81,12 +73,11 @@ function loadPosts() {
   // grab the data
 
   posts.forEach(post => displayPost(post));
+  addClickEventToPostListHeader();
 }
 
 function addClickEventToPostListHeader() {
-  let header = document.querySelector('.post-lists h3');
-  let headerClick = changeColor.bind(header);
-  header.addEventListener('click', headerClick);
+  document.querySelector('.post-lists h3').addEventListener('click', changeColor);
 }
 
 function addSubmitEventToForm() {
@@ -94,7 +85,12 @@ function addSubmitEventToForm() {
 }
 
 function addMouseOverToWelcome() {
-  let h1 = document.querySelector('h1');
-  let h1Click = changeColor.bind(h1);
-  h1.addEventListener('mouseover', h1Click);
+  document.querySelector('h1').addEventListener('mouseover', changeColor);
 }
+
+document.addEventListener('DOMContentLoaded', function () {
+  // We have access to all of the DOM elements
+  addSubmitEventToForm();
+  addMouseOverToWelcome();
+  loadPosts();
+});
