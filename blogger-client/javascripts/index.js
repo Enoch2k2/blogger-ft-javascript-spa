@@ -1,48 +1,34 @@
-let posts = [
-  {
-    title: "Bob's great adventure",
-    author: "Sam",
-    content: "Sam and bob get stuck at walmart."
-  },
-  {
-    title: "Another post",
-    author: "Fred",
-    content: "Post content"
-  },
-  {
-    title: "Another post 2",
-    author: "sarah",
-    content: "Post content 2"
-  }
-];
-
 let colors = ["red", "green", "blue"];
 let index = 0;
 let maxIndex = colors.length;
 
-function createPost() {
-  // create post object
+const BASE_URL = 'http://localhost:3000'
+
+function createData() {
   return {
-    title: document.getElementById('title').value,
-    author: document.getElementById('author').value,
-    content: document.getElementById('content').value
+    blog: {
+      title: document.getElementById('title').value,
+      content: document.getElementById('content').value
+    },
+    user: {
+      name: document.getElementById('author').value
+    }
   }
-  // return post object
 }
 
-function displayPost(post) {
+function displayBlog(blog) {
   // display post details in a card in the post-lists
-  document.getElementsByClassName("post-lists")[0].innerHTML += formatPost(post);
+  document.getElementsByClassName("post-lists")[0].innerHTML += formatBlog(blog);
 }
 
-function formatPost(post) {
+function formatBlog(blog) {
   // create html template to add to the innerHTML of the post-lists
   return `
     <div class="card">
         <div class="card-content">
-          <span class="card-title">${post.title}</span>
-          <p>By: ${post.author}</p>
-          <p>${post.content}</p>
+          <span class="card-title">${blog.title}</span>
+          <p>By: ${blog.user.name}</p>
+          <p>${blog.content}</p>
         </div>
     </div>
   `
@@ -56,9 +42,20 @@ function clearForm() {
 
 function submitForm(event) {
   event.preventDefault();
-  let post = createPost();
-  displayPost(post)
-  clearForm();
+  let data = createData();
+  fetch(BASE_URL + '/api/blogs', {
+    method: "POST",
+    headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(data)
+  })
+  .then(response => response.json())
+  .then(blog => {
+    displayBlog(blog)
+    clearForm();
+  })
 }
 
 function changeColor(event) {
@@ -68,12 +65,18 @@ function changeColor(event) {
   }
 }
 
-function loadPosts() {
+function loadBlogs() {
   // fetch to our rails back end
   // grab the data
+  fetch(BASE_URL + '/api/blogs')
+  .then(resp => resp.json())
+  .then(blogs => {
+    blogs.forEach(blog => displayBlog(blog))
+    debugger
+  })
 
-  posts.forEach(post => displayPost(post));
-  addClickEventToPostListHeader();
+  // ;
+  // addClickEventToPostListHeader();
 }
 
 function addClickEventToPostListHeader() {
@@ -91,6 +94,6 @@ function addMouseOverToWelcome() {
 document.addEventListener('DOMContentLoaded', function () {
   // We have access to all of the DOM elements
   addSubmitEventToForm();
-  addMouseOverToWelcome();
-  loadPosts();
+  // addMouseOverToWelcome();
+  loadBlogs();
 });
