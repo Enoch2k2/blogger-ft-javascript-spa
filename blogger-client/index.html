@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -12,11 +13,12 @@
 
   <title>DOM Events</title>
 </head>
+
 <body class="green lighten-4">
   <div class="header green darken-3 white-text">
     <h1 class="center">Welcome to Blogger!</h1>
   </div>
-  
+
   <div class="row">
     <div class="col s12 m6 l6">
       <form id="blog-form" action="#">
@@ -29,12 +31,12 @@
           <input type="text" name="author" id="author">
           <label for="author">Author</label>
         </div>
-    
+
         <label for="content">Content</label>
         <div class="input-field">
           <textarea name="content" id="content" cols="30" rows="50"></textarea>
         </div>
-    
+
         <input type="submit" value="Create Post" class="btn">
       </form>
     </div>
@@ -43,11 +45,6 @@
       <h3 class="center">List of Posts</h3>
     </div>
   </div>
-
-  <script src="javascripts/models/blog.js"></script>
-  <script src="javascripts/models/author.js"></script>
-  <script src="javascripts/service/api.js"></script>
-  <script src="javascripts/service/events.js"></script>
-  <script src="javascripts/index.js"></script>
 </body>
+
 </html>
