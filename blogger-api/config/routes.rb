@@ -4,3 +4,5 @@ Rails.application.routes.draw do
     resources :blogs, except: [:edit, :new]
   end
 end
+
+# /api/blogs
