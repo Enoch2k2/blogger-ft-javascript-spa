@@ -7,6 +7,9 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 
 bob = User.create(name:  "Bob")
-sarah = User.create(name:  "Sarah")
-luke = User.create(name:  "Luke")
-leah = User.create(name:  "Leah")
+
+Blog.create(
+  [{title: "Title 1", content: "Content 1", user: bob},
+  {title: "Title 2", content: "Not so generic content", user: bob},
+  {title: "Not so generic with this title", content: "Amazing Content", user: bob}]
+)
